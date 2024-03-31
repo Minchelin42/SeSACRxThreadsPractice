@@ -7,8 +7,12 @@
  
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class BirthdayViewController: UIViewController {
+    
+    let disposeBag = DisposeBag()
     
     let birthDayPicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -66,18 +70,99 @@ class BirthdayViewController: UIViewController {
   
     let nextButton = PointButton(title: "가입하기")
     
+    let year = PublishSubject<Int>()
+    let month = PublishSubject<Int>()
+    let day = PublishSubject<Int>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = Color.white
         
         configureLayout()
+        bind()
         
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        nextButton.rx.tap.bind(with: self) { owner, _ in
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            
+            let nav = UINavigationController(rootViewController: SampleViewController())
+
+            sceneDelegate?.window?.rootViewController = nav
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
+        .disposed(by: disposeBag)
     }
     
     @objc func nextButtonClicked() {
         print("가입완료")
+    }
+    
+    func bind() {
+        year
+            .map { "\($0)년"}
+            .bind(to: yearLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        month
+            .map { "\($0)월"}
+            .bind(to: monthLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        day
+            .map { "\($0)일"}
+            .bind(to: dayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        birthDayPicker.rx.date
+            .subscribe(with: self) { owner, date in
+                let nowComponent = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                let pickerComponent = Calendar.current.dateComponents([.year, .month, .day], from: date)
+    
+                if nowComponent.year! - pickerComponent.year! >= 19 {
+                    owner.infoLabel.textColor = .blue
+                    owner.infoLabel.text = "가입 가능한 나이입니다"
+                    owner.nextButton.backgroundColor = .blue
+                    owner.nextButton.isEnabled = true
+                } else if nowComponent.year! - pickerComponent.year! == 18 {
+                    if nowComponent.month! < pickerComponent.month! {
+                        owner.infoLabel.textColor = .red
+                        owner.infoLabel.text = "만 17세 이상만 가입 가능합니다"
+                        owner.nextButton.backgroundColor = .lightGray
+                        owner.nextButton.isEnabled = false
+                    } else if nowComponent.month! == pickerComponent.month! {
+                        if nowComponent.day! < pickerComponent.day! {
+                            owner.infoLabel.textColor = .red
+                            owner.infoLabel.text = "만 17세 이상만 가입 가능합니다"
+                            owner.nextButton.backgroundColor = .lightGray
+                            owner.nextButton.isEnabled = false
+                        } else {
+                            owner.infoLabel.textColor = .blue
+                            owner.infoLabel.text = "가입 가능한 나이입니다"
+                            owner.nextButton.backgroundColor = .blue
+                            owner.nextButton.isEnabled = true
+                        }
+                    } else {
+                        owner.infoLabel.textColor = .blue
+                        owner.infoLabel.text = "가입 가능한 나이입니다"
+                        owner.nextButton.backgroundColor = .blue
+                        owner.nextButton.isEnabled = true
+                    }
+                } else {
+                    owner.infoLabel.textColor = .red
+                    owner.infoLabel.text = "만 17세 이상만 가입 가능합니다"
+                    owner.nextButton.backgroundColor = .lightGray
+                    owner.nextButton.isEnabled = false
+                }
+                
+                
+                owner.year.onNext(pickerComponent.year!)
+                owner.month.on(.next(pickerComponent.month!))
+                owner.day.onNext(pickerComponent.day!)
+            }
+            .disposed(by: disposeBag)
+        
     }
 
     
