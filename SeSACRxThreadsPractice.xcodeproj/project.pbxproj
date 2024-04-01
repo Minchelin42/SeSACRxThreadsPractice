@@ -29,6 +29,11 @@
 		041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041280722AEFAD4B00972552 /* NicknameViewController.swift */; };
 		041280782AF1D14000972552 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041280772AF1D14000972552 /* Resource.swift */; };
 		39652EB12BB9C09F00E71C26 /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39652EB02BB9C09F00E71C26 /* SampleViewController.swift */; };
+		39796FA32BBABABC0025D940 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FA22BBABABC0025D940 /* SearchViewController.swift */; };
+		39796FA62BBABB3B0025D940 /* ShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FA52BBABB3B0025D940 /* ShoppingViewController.swift */; };
+		39796FA82BBABB5E0025D940 /* ShoppingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FA72BBABB5E0025D940 /* ShoppingTableViewCell.swift */; };
+		39796FAA2BBAFAF60025D940 /* ShoppingEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FA92BBAFAF60025D940 /* ShoppingEditViewController.swift */; };
+		39796FAC2BBB02150025D940 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FAB2BBB02150025D940 /* SearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +77,11 @@
 		041280722AEFAD4B00972552 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		041280772AF1D14000972552 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		39652EB02BB9C09F00E71C26 /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		39796FA22BBABABC0025D940 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		39796FA52BBABB3B0025D940 /* ShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewController.swift; sourceTree = "<group>"; };
+		39796FA72BBABB5E0025D940 /* ShoppingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCell.swift; sourceTree = "<group>"; };
+		39796FA92BBAFAF60025D940 /* ShoppingEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingEditViewController.swift; sourceTree = "<group>"; };
+		39796FAB2BBB02150025D940 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +135,8 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				39796FA42BBABAFE0025D940 /* Shopping */,
+				39796FA12BBABA6D0025D940 /* Search */,
 				39652EB02BB9C09F00E71C26 /* SampleViewController.swift */,
 				041280532AEF9C1F00972552 /* SignUp */,
 				041280542AEF9C2600972552 /* SignIn */,
@@ -193,6 +205,25 @@
 				041280722AEFAD4B00972552 /* NicknameViewController.swift */,
 			);
 			path = SignUpOptional;
+			sourceTree = "<group>";
+		};
+		39796FA12BBABA6D0025D940 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				39796FA22BBABABC0025D940 /* SearchViewController.swift */,
+				39796FAB2BBB02150025D940 /* SearchTableViewCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		39796FA42BBABAFE0025D940 /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				39796FA52BBABB3B0025D940 /* ShoppingViewController.swift */,
+				39796FA72BBABB5E0025D940 /* ShoppingTableViewCell.swift */,
+				39796FA92BBAFAF60025D940 /* ShoppingEditViewController.swift */,
+			);
+			path = Shopping;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,19 +365,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39796FA82BBABB5E0025D940 /* ShoppingTableViewCell.swift in Sources */,
+				39796FA32BBABABC0025D940 /* SearchViewController.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
 				0412806C2AEFABFE00972552 /* PasswordViewController.swift in Sources */,
+				39796FAA2BBAFAF60025D940 /* ShoppingEditViewController.swift in Sources */,
 				041280562AEFA04800972552 /* SignInViewController.swift in Sources */,
 				041280282AEF9BAB00972552 /* ViewController.swift in Sources */,
 				39652EB12BB9C09F00E71C26 /* SampleViewController.swift in Sources */,
+				39796FAC2BBB02150025D940 /* SearchTableViewCell.swift in Sources */,
 				041280632AEFA0CE00972552 /* PointButton.swift in Sources */,
 				041280242AEF9BAB00972552 /* AppDelegate.swift in Sources */,
 				041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				041280712AEFAD3D00972552 /* PhoneViewController.swift in Sources */,
 				041280262AEF9BAB00972552 /* SceneDelegate.swift in Sources */,
+				39796FA62BBABB3B0025D940 /* ShoppingViewController.swift in Sources */,
 				041280582AEFA05300972552 /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
