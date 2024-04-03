@@ -13,14 +13,12 @@ import RxCocoa
 class SampleViewController: UIViewController {
 
     let textField = UITextField()
-    
     let plusButton = UIButton()
-    
     let tableView = UITableView()
     
-    let disposeBag = DisposeBag()
+    let viewModel = SampleViewModel()
     
-    var list = BehaviorSubject(value: ["Den", "Jack", "Hue", "Bran"])
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,32 +28,39 @@ class SampleViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         configureView()
+        bind()
+    }
+    
+    private func bind() {
         
-        list
+        viewModel.items
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, element, cell) in
                 cell.textLabel?.text = "\(element) @ row \(row)"
             }
             .disposed(by: disposeBag)
-
+        
         tableView.rx.itemSelected
             .subscribe(with: self) { owner, indexPath in
-                var nowList = try? owner.list.value()
-                nowList?.remove(at: indexPath.row)
-                owner.list.onNext(nowList ?? [])
+                owner.viewModel.selectedIndex.onNext(indexPath.row)
             }
             .disposed(by: disposeBag)
-        
-        plusButton.rx.tap.bind(with: self) { owner, _ in
-            var nowList = try? owner.list.value()
-            nowList?.append(owner.textField.text ?? "")
-            owner.list.onNext(nowList ?? [])
-            owner.textField.text = ""
-        }
-        .disposed(by: disposeBag)
 
+        plusButton.rx.tap
+            .bind(to: viewModel.plusButtonClicked)
+            .disposed(by: disposeBag)
+        
+        viewModel.plusButtonClicked
+            .withLatestFrom(textField.rx.text.orEmpty)
+            .distinctUntilChanged()
+            .subscribe(with: self) { owner, value in
+                owner.viewModel.list.append(value)
+                owner.viewModel.items.onNext(owner.viewModel.list)
+                owner.textField.text = ""
+            }
+            .disposed(by: disposeBag)
     }
     
-    func configureView() {
+    private func configureView() {
         view.addSubview(textField)
         view.addSubview(plusButton)
         view.addSubview(tableView)

@@ -10,14 +10,14 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class PhoneViewController: UIViewController {
+final class PhoneViewController: UIViewController {
    
     let phoneTextField = SignTextField(placeholderText: "연락처를 입력해주세요")
     let nextButton = PointButton(title: "다음")
     
-    var phoneNum = Observable.just("010")
     let validationLabel = UILabel()
-    var validationText = BehaviorSubject(value: "휴대폰번호를 입력해주세요")
+    
+    let viewModel = PhoneViewModel()
     
     let disposeBag = DisposeBag()
     
@@ -27,42 +27,47 @@ class PhoneViewController: UIViewController {
         view.backgroundColor = Color.white
         
         configureLayout()
+        bind()
+    }
+    
+    private func bind() {
         
-        phoneNum.bind(to: phoneTextField.rx.text).disposed(by: disposeBag)
+        viewModel.defaultNumber
+            .bind(to: phoneTextField.rx.text)
+            .disposed(by: disposeBag)
         
-        validationText.bind(to: validationLabel.rx.text).disposed(by: disposeBag)
+        phoneTextField.rx.text.orEmpty
+            .bind(to: viewModel.inputNumber)
+            .disposed(by: disposeBag)
         
-        let validation = phoneTextField.rx.text.orEmpty
+        viewModel.validationText
+            .asDriver()
+            .drive(validationLabel.rx.text)
+            .disposed(by: disposeBag)
         
-        validation.bind(with: self) { owner, value in
-            guard let number = Int(value) else {
-                owner.validationText.onNext("입력형식이 올바르지않습니다")
-                owner.validationLabel.isHidden = false
-                owner.nextButton.isEnabled = false
-                return
+        viewModel.validation
+            .asDriver()
+            .drive(with: self) { owner, value in
+                owner.validationLabel.isHidden = value
+                owner.nextButton.isEnabled = value
             }
-            
-            if value.count < 10 {
-                owner.validationText.onNext("휴대폰번호는 10자이상으로 입력해주세요")
-                owner.validationLabel.isHidden = false
-                owner.nextButton.isEnabled = false
-            } else {
-                owner.validationLabel.isHidden = true
-                owner.nextButton.isEnabled = true
-            }
-            
-        }
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
+      
+        nextButton.rx.tap
+            .bind(to: viewModel.nextButtonClicked)
+            .disposed(by: disposeBag)
         
-        nextButton.rx.tap.bind(with: self) { owner, _ in
-            owner.navigationController?.pushViewController(NicknameViewController(), animated: true)
-        }.disposed(by: disposeBag)
+        viewModel.nextButtonClicked
+            .asDriver(onErrorJustReturn: ())
+            .drive(with: self) { owner, _ in
+                owner.navigationController?.pushViewController(NicknameViewController(), animated: true)
+            }.disposed(by: disposeBag)
         
     }
 
 
     
-    func configureLayout() {
+    private func configureLayout() {
         view.addSubview(phoneTextField)
         view.addSubview(validationLabel)
         view.addSubview(nextButton)

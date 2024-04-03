@@ -36,6 +36,9 @@
 		39796FAC2BBB02150025D940 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FAB2BBB02150025D940 /* SearchTableViewCell.swift */; };
 		39796FAE2BBB0A250025D940 /* ShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FAD2BBB0A250025D940 /* ShoppingViewModel.swift */; };
 		39796FB62BBD5A180025D940 /* ShoppingEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FB52BBD5A180025D940 /* ShoppingEditViewModel.swift */; };
+		39796FB82BBDA0E50025D940 /* BirthdayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FB72BBDA0E50025D940 /* BirthdayModel.swift */; };
+		39796FBA2BBDA8D30025D940 /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FB92BBDA8D30025D940 /* PhoneViewModel.swift */; };
+		39796FBD2BBDB11F0025D940 /* SampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,9 @@
 		39796FAB2BBB02150025D940 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		39796FAD2BBB0A250025D940 /* ShoppingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingViewModel.swift; sourceTree = "<group>"; };
 		39796FB52BBD5A180025D940 /* ShoppingEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingEditViewModel.swift; sourceTree = "<group>"; };
+		39796FB72BBDA0E50025D940 /* BirthdayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayModel.swift; sourceTree = "<group>"; };
+		39796FB92BBDA8D30025D940 /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
+		39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,9 +145,9 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				39796FBB2BBDB10D0025D940 /* Sample */,
 				39796FA42BBABAFE0025D940 /* Shopping */,
 				39796FA12BBABA6D0025D940 /* Search */,
-				39652EB02BB9C09F00E71C26 /* SampleViewController.swift */,
 				041280532AEF9C1F00972552 /* SignUp */,
 				041280542AEF9C2600972552 /* SignIn */,
 				0412806D2AEFAD0F00972552 /* SignUpOptional */,
@@ -207,6 +213,8 @@
 				0412806E2AEFAD2D00972552 /* BirthdayViewController.swift */,
 				041280702AEFAD3D00972552 /* PhoneViewController.swift */,
 				041280722AEFAD4B00972552 /* NicknameViewController.swift */,
+				39796FB72BBDA0E50025D940 /* BirthdayModel.swift */,
+				39796FB92BBDA8D30025D940 /* PhoneViewModel.swift */,
 			);
 			path = SignUpOptional;
 			sourceTree = "<group>";
@@ -230,6 +238,15 @@
 				39796FB52BBD5A180025D940 /* ShoppingEditViewModel.swift */,
 			);
 			path = Shopping;
+			sourceTree = "<group>";
+		};
+		39796FBB2BBDB10D0025D940 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				39652EB02BB9C09F00E71C26 /* SampleViewController.swift */,
+				39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */,
+			);
+			path = Sample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,10 +388,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39796FB82BBDA0E50025D940 /* BirthdayModel.swift in Sources */,
 				39796FA82BBABB5E0025D940 /* ShoppingTableViewCell.swift in Sources */,
 				39796FA32BBABABC0025D940 /* SearchViewController.swift in Sources */,
 				39796FAE2BBB0A250025D940 /* ShoppingViewModel.swift in Sources */,
+				39796FBA2BBDA8D30025D940 /* PhoneViewModel.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
+				39796FBD2BBDB11F0025D940 /* SampleViewModel.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
 				0412806C2AEFABFE00972552 /* PasswordViewController.swift in Sources */,
