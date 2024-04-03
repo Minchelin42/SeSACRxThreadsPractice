@@ -12,7 +12,7 @@ import RxCocoa
 
 class ShoppingEditViewController: UIViewController {
 
-    let emailTextField = SignTextField(placeholderText: "수정할 입력해주세요")
+    let editTextField = SignTextField(placeholderText: "수정할 입력해주세요")
     let validationButton = UIButton()
     let editButton = PointButton(title: "수정")
     let deleteButton = PointButton(title: "삭제")
@@ -21,6 +21,8 @@ class ShoppingEditViewController: UIViewController {
     var listTitle = ""
     
     let disposeBag = DisposeBag()
+    
+    let viewModel = ShoppingEditViewModel()
     
     var editOrDelete: ((Bool?, String) -> ())?
     
@@ -45,19 +47,37 @@ class ShoppingEditViewController: UIViewController {
 
     func bind() {
         
-        emailTextField.rx.text.orEmpty
+        editTextField.rx.text.orEmpty
+            .bind(to: viewModel.inputEdit)
+            .disposed(by: disposeBag)
+        
+        viewModel.inputEdit
             .subscribe(with: self) { owner, value in
                 owner.listTitle = value
             }
             .disposed(by: disposeBag)
         
+//        editTextField.rx.text.orEmpty
+//            .subscribe(with: self) { owner, value in
+//                owner.listTitle = value
+//            }
+//            .disposed(by: disposeBag)
+        
         editButton.rx.tap
-            .withLatestFrom(emailTextField.rx.text.orEmpty)
+            .bind(to: viewModel.editButtonClicked)
+            .disposed(by: disposeBag)
+        
+        viewModel.editButtonClicked
+            .withLatestFrom(editTextField.rx.text.orEmpty)
             .bind(with: self) { owner, value in
                 owner.isEdit = true
                 owner.listTitle = value
                 owner.navigationController?.popViewController(animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .bind(to: viewModel.deleteButtonClicked)
             .disposed(by: disposeBag)
         
         deleteButton.rx.tap
@@ -68,18 +88,18 @@ class ShoppingEditViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func configure() {
+    private func configure() {
         editButton.backgroundColor = .systemBlue
         deleteButton.backgroundColor = .systemRed
-        emailTextField.text = listTitle
+        editTextField.text = listTitle
     }
     
-    func configureLayout() {
-        view.addSubview(emailTextField)
+    private func configureLayout() {
+        view.addSubview(editTextField)
         view.addSubview(editButton)
         view.addSubview(deleteButton)
         
-        emailTextField.snp.makeConstraints { make in
+        editTextField.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(200)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -87,7 +107,7 @@ class ShoppingEditViewController: UIViewController {
         
         editButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.top.equalTo(emailTextField.snp.bottom).offset(30)
+            make.top.equalTo(editTextField.snp.bottom).offset(30)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         

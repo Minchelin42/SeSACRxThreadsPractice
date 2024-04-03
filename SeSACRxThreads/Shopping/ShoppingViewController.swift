@@ -20,12 +20,6 @@ struct Wish {
         self.title = title
         self.star = false
     }
-    
-    init(check: Bool, title: String, star: Bool) {
-        self.check = check
-        self.title = title
-        self.star = star
-    }
 }
 
 class ShoppingViewController: UIViewController {
@@ -38,9 +32,7 @@ class ShoppingViewController: UIViewController {
     }()
     
     let textField = UITextField()
-    
     let searchBar = UISearchBar()
-    
     let inputButton = {
        let button = UIButton()
         button.setTitle("추가", for: .normal)
@@ -52,12 +44,9 @@ class ShoppingViewController: UIViewController {
         return button
     }()
     
-    var list: [Wish] = [Wish(check: true, title: "트랙패드", star: false)]
-    
+    let viewModel = ShoppingViewModel()
     let disposeBag = DisposeBag()
     
-    lazy var items = BehaviorSubject(value: list)
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -96,8 +85,26 @@ class ShoppingViewController: UIViewController {
         textField.placeholder = "새로운 항목을 입력하세요"
     }
     
-    func bind() {
-        items.bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+    private func bind() {
+        
+        searchBar.rx.text.orEmpty
+            .bind(to: viewModel.inputSearch)
+            .disposed(by: disposeBag)
+        
+        searchBar.rx.searchButtonClicked
+            .bind(to: viewModel.searchButtonClicked)
+            .disposed(by: disposeBag)
+        
+        inputButton.rx.tap
+            .bind(to: viewModel.inputButtonClicked)
+            .disposed(by: disposeBag)
+        
+        textField.rx.text.orEmpty
+            .bind(to: viewModel.inputShopping)
+            .disposed(by: disposeBag)
+        
+        
+        viewModel.items.bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
 
             cell.listLabel.text = "\(element.title)"
             cell.starButton.setImage(UIImage(systemName: element.star ? "star.fill" : "star"), for: .normal)
@@ -106,51 +113,21 @@ class ShoppingViewController: UIViewController {
             cell.starButton.rx.tap
                 .bind(with: self) { owner, _ in
                     print("starButton toggle")
-                    owner.list[row].star.toggle()
-                    owner.items.onNext(owner.list)
+                    owner.viewModel.list[row].star.toggle()
+                    owner.viewModel.items.onNext(owner.viewModel.list)
                 }
                 .disposed(by: cell.disposeBag)
             
             cell.checkButton.rx.tap
                 .bind(with: self) { owner, _ in
-                    print("starButton toggle")
-                    owner.list[row].check.toggle()
-                    owner.items.onNext(owner.list)
+                    print("checkButton toggle")
+                    owner.viewModel.list[row].check.toggle()
+                    owner.viewModel.items.onNext(owner.viewModel.list)
                 }
                 .disposed(by: cell.disposeBag)
         }
         .disposed(by: disposeBag)
-        
-        inputButton.rx.tap
-            .withLatestFrom(textField.rx.text.orEmpty)
-            .distinctUntilChanged()
-            .subscribe(with: self) { owner, value in
-                print("추가 버튼 클릭: \(value)")
-                owner.list.append(Wish(title: value))
-                owner.items.onNext(owner.list)
-            }
-            .disposed(by: disposeBag)
-        
-        searchBar.rx.text.orEmpty
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .subscribe(with: self) { owner, value in
-                print("실시간 검색: \(value)")
-                let result = value.isEmpty ? owner.list : owner.list.filter{ $0.title.contains(value)}
-                owner.items.onNext(result)
-            }
-            .disposed(by: disposeBag)
-        
-        searchBar.rx.searchButtonClicked
-            .withLatestFrom(searchBar.rx.text.orEmpty)
-            .distinctUntilChanged()
-            .subscribe(with: self) { owner, value in
-                print("검색 버튼 클릭: \(value)")
-                let result = value.isEmpty ? owner.list : owner.list.filter{ $0.title.contains(value)}
-                owner.items.onNext(result)
-            }
-            .disposed(by: disposeBag)
-        
+
         Observable.zip(tableView.rx.itemSelected, tableView.rx.modelSelected(Wish.self))
             .bind(with: self) { owner, value in
                 print(value.0.row, value.1.title) //indexPath.row, wish.title
@@ -159,17 +136,15 @@ class ShoppingViewController: UIViewController {
                 vc.editOrDelete = { isEdit, newTitle in
                     guard let isEdit = isEdit else { return }
                     if isEdit {
-                        owner.list[value.0.row].title = newTitle
+                        owner.viewModel.list[value.0.row].title = newTitle
                     } else {
-                        owner.list.remove(at: value.0.row)
+                        owner.viewModel.list.remove(at: value.0.row)
                     }
-                    owner.items.onNext(owner.list)
+                    owner.viewModel.items.onNext(owner.viewModel.list)
                 }
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
-        
-        
         
     }
 
