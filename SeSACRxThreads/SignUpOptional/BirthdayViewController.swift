@@ -79,74 +79,35 @@ final class BirthdayViewController: UIViewController {
 
     private func bind() {
         
-        nextButton.rx.tap
-            .bind(to: viewModel.nextButtonClicked)
-            .disposed(by: disposeBag)
+        let input = BirthdayModel.Input(birthday: birthDayPicker.rx.date, nextButtonClicked: nextButton.rx.tap)
         
-        birthDayPicker.rx.date
-            .bind(to: viewModel.birthDay)
-            .disposed(by: disposeBag)
+        let output = viewModel.transform(input: input)
         
-        viewModel.nextButtonClicked
-            .asDriver(onErrorJustReturn: ())
-            .drive(with: self) { owner, _ in
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        output.validation
+            .drive(with: self) { owner, value in
+                owner.nextButton.backgroundColor = value ? .blue : .lightGray
+                owner.nextButton.isEnabled = value
                 
-                let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                
-                let nav = UINavigationController(rootViewController: SampleViewController())
-
-                sceneDelegate?.window?.rootViewController = nav
-                sceneDelegate?.window?.makeKeyAndVisible()
+                owner.infoLabel.textColor = value ? .blue: .red
             }
             .disposed(by: disposeBag)
         
-        viewModel.validation
-            .subscribe(with: self) { owner, value in
-                if value {
-                    owner.viewModel.infoMessage.accept("가입 가능한 나이입니다")
-                    owner.infoLabel.textColor = .blue
-                    owner.nextButton.backgroundColor = .blue
-                    owner.nextButton.isEnabled = true
-                } else {
-                    owner.viewModel.infoMessage.accept("만 17세 이상만 가입 가능합니다")
-                    owner.infoLabel.textColor = .red
-                    owner.nextButton.backgroundColor = .lightGray
-                    owner.nextButton.isEnabled = false
-                }
-            }
+        output.year
+            .drive(yearLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.infoMessage
-            .asDriver()
-            .drive(with: self) { owner, value in
-                owner.infoLabel.text = value
-            }
+        output.month
+            .drive(monthLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.year
-            .asDriver(onErrorJustReturn: 2024)
-            .map { "\($0)년" }
-            .drive(with: self) { owner, value in
-                owner.yearLabel.text = value
-            }
+        output.day
+            .drive(dayLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.month
-            .asDriver(onErrorJustReturn: 4)
-            .map { "\($0)월" }
-            .drive(with: self) { owner, value in
-                owner.monthLabel.text = value
-            }
+        output.infoMessage
+            .drive(infoLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.day
-            .asDriver(onErrorJustReturn: 2)
-            .map { "\($0)일" }
-            .drive(with: self) { owner, value in
-                owner.dayLabel.text = value
-            }
-            .disposed(by: disposeBag)
     }
 
     
