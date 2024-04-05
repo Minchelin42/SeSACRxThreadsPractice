@@ -36,30 +36,33 @@ final class PhoneViewController: UIViewController {
             .bind(to: phoneTextField.rx.text)
             .disposed(by: disposeBag)
         
-        phoneTextField.rx.text.orEmpty
-            .bind(to: viewModel.inputNumber)
+        let input = PhoneViewModel.Input(nextButtonClicked: nextButton.rx.tap, phoneNumber: phoneTextField.rx.text)
+        
+        let output = viewModel.transform(input: input)
+        
+        phoneTextField.rx.text
+            .subscribe(input.phoneNumber)
             .disposed(by: disposeBag)
         
-        viewModel.validationText
-            .asDriver()
-            .drive(validationLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.validation
-            .asDriver()
+        output.validation
             .drive(with: self) { owner, value in
                 owner.validationLabel.isHidden = value
                 owner.nextButton.isEnabled = value
             }
             .disposed(by: disposeBag)
-      
-        nextButton.rx.tap
-            .bind(to: viewModel.nextButtonClicked)
+        
+        output.validationText
+            .drive(validationLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.nextButtonClicked
-            .asDriver(onErrorJustReturn: ())
+        output.nextButtonClicked
+            .asDriver()
             .drive(with: self) { owner, _ in
+                owner.navigationController?.pushViewController(NicknameViewController(), animated: true)
+            }.disposed(by: disposeBag)
+        
+        output.nextButtonClicked
+            .subscribe(with: self) { owner, _ in
                 owner.navigationController?.pushViewController(NicknameViewController(), animated: true)
             }.disposed(by: disposeBag)
         

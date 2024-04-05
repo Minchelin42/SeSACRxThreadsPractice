@@ -9,40 +9,50 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-
 final class PhoneViewModel {
     
-    let validation = BehaviorRelay(value: false)
-    let validationText = BehaviorRelay(value: "휴대폰번호를 입력해주세요")
-    
     let defaultNumber = BehaviorSubject(value: "010")
-    let inputNumber = PublishSubject<String>()
-    
-    let nextButtonClicked = PublishRelay<Void>()
     
     let disposeBag = DisposeBag()
     
-    init() {
-        inputNumber
-            .subscribe(with: self) { owner, value in
-                owner.validationInput(value)
-            }
-            .disposed(by: disposeBag)
+    struct Input {
+        let nextButtonClicked: ControlEvent<Void>
+        let phoneNumber: ControlProperty<String?>
     }
     
-    private func validationInput(_ value: String) {
-        guard Int(value) != nil else {
-            self.validation.accept(false)
-            self.validationText.accept("입력형식이 올바르지않습니다")
-            return
-        }
+    struct Output {
         
-        if value.count < 10 {
-            self.validationText.accept("휴대폰번호는 10자이상으로 입력해주세요")
-            self.validation.accept(false)
-        } else {
-            self.validation.accept(true)
-        }
+        let nextButtonClicked: ControlEvent<Void>
+        
+        let validation: Driver<Bool>
+        let validationText: Driver<String>
     }
+    
+    func transform(input: Input) -> Output {
+        
+        let validation = PublishRelay<Bool>()
+        let validationText = PublishRelay<String>()
+        
+        input.phoneNumber.orEmpty
+            .subscribe(with: self) { owner, value in
+                guard Int(value) != nil else {
+                    validation.accept(false)
+                    validationText.accept("입력형식이 올바르지않습니다")
+                    return
+                }
+                
+                if value.count < 10 {
+                    validationText.accept("휴대폰번호는 10자이상으로 입력해주세요")
+                    validation.accept(false)
+                } else {
+                    validation.accept(true)
+                }
+            }
+            .disposed(by: disposeBag)
+   
+        
+        return Output(nextButtonClicked: input.nextButtonClicked, validation: validation.asDriver(onErrorJustReturn: false), validationText: validationText.asDriver(onErrorJustReturn: ""))
+    }
+    
     
 }
