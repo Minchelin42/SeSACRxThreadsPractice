@@ -15,6 +15,7 @@ class ShoppingTableViewCell: UITableViewCell {
     static let identifier = "ShoppingTableCell"
     
     var disposeBag = DisposeBag()
+    let viewModel = ShoppingTableViewCellViewModel()
     
     let checkButton: UIButton = {
         let button = UIButton()
@@ -49,6 +50,7 @@ class ShoppingTableViewCell: UITableViewCell {
         super.prepareForReuse()
         checkButton.setImage(nil, for: .normal)
         starButton.setImage(nil, for: .normal)
+        
         disposeBag = DisposeBag()
     }
     

@@ -87,47 +87,52 @@ class ShoppingViewController: UIViewController {
     
     private func bind() {
         
-        searchBar.rx.text.orEmpty
-            .bind(to: viewModel.inputSearch)
-            .disposed(by: disposeBag)
+        let input = ShoppingViewModel.Input(inputSearch: searchBar.rx.text, inputShopping: textField.rx.text, searchButtonClicked: searchBar.rx.searchButtonClicked, inputButtonClicked: inputButton.rx.tap)
         
-        searchBar.rx.searchButtonClicked
-            .bind(to: viewModel.searchButtonClicked)
-            .disposed(by: disposeBag)
-        
-        inputButton.rx.tap
-            .bind(to: viewModel.inputButtonClicked)
-            .disposed(by: disposeBag)
-        
-        textField.rx.text.orEmpty
-            .bind(to: viewModel.inputShopping)
-            .disposed(by: disposeBag)
-        
-        
-        viewModel.items.bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+        let output = viewModel.transform(input: input)
 
+        output.items.bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+            
             cell.listLabel.text = "\(element.title)"
             cell.starButton.setImage(UIImage(systemName: element.star ? "star.fill" : "star"), for: .normal)
             cell.checkButton.setImage(UIImage(systemName: element.check ? "checkmark.square.fill" : "checkmark.square"), for: .normal)
             
+            let cellInput = ShoppingTableViewCellViewModel.Input(starButtonClicked: cell.starButton.rx.tap, checkButtonClicked: cell.checkButton.rx.tap)
+            
+            let cellOutput = cell.viewModel.transform(input: cellInput)
+            
             cell.starButton.rx.tap
-                .bind(with: self) { owner, _ in
-                    print("starButton toggle")
-                    owner.viewModel.list[row].star.toggle()
-                    owner.viewModel.items.onNext(owner.viewModel.list)
+                .map { return row }
+                .subscribe(with: self) { owner, value in
+                    cell.viewModel.list = owner.viewModel.list
+                    cell.viewModel.nowList = owner.viewModel.nowList
+                    cell.viewModel.nowIndex = value
                 }
                 .disposed(by: cell.disposeBag)
             
             cell.checkButton.rx.tap
-                .bind(with: self) { owner, _ in
-                    print("checkButton toggle")
-                    owner.viewModel.list[row].check.toggle()
-                    owner.viewModel.items.onNext(owner.viewModel.list)
+                .map { return row }
+                .subscribe(with: self) { owner, value in
+                    cell.viewModel.list = owner.viewModel.list
+                    cell.viewModel.nowList = owner.viewModel.nowList
+                    cell.viewModel.nowIndex = value
                 }
                 .disposed(by: cell.disposeBag)
+            
+            cellOutput.items.subscribe(with: self) { owner, value in
+                owner.viewModel.nowList = cell.viewModel.nowList
+                owner.viewModel.list = cell.viewModel.list
+                output.items.onNext(value)
+            }
+            .disposed(by: cell.disposeBag)
+   
         }
         .disposed(by: disposeBag)
+        
+       
 
+
+/*
         Observable.zip(tableView.rx.itemSelected, tableView.rx.modelSelected(Wish.self))
             .bind(with: self) { owner, value in
                 print(value.0.row, value.1.title) //indexPath.row, wish.title
@@ -144,7 +149,7 @@ class ShoppingViewController: UIViewController {
                 }
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag)*/
         
     }
 
