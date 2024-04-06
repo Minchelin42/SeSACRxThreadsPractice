@@ -21,19 +21,27 @@ class BoxOfficeViewController: UIViewController {
     let viewModel = BoxOfficeViewModel()
     
     func bind() {
-         
         
-        viewModel.movie
+        let recentText = PublishSubject<String>()
+        
+        let input = BoxOfficeViewModel.Input(searchButtonTap: searchBar.rx.searchButtonClicked,
+                                             searchText: searchBar.rx.text.orEmpty,
+                                             recentText: recentText)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.movie
             .bind(
                 to: tableView.rx.items(
                     cellIdentifier: SearchTableViewCell.identifier,
                     cellType: SearchTableViewCell.self)
             ) { (row, element, cell) in
-                cell.appNameLabel.text = element
+                cell.appNameLabel.text = element.movieNm
+                cell.downloadButton.setTitle(element.openDt, for: .normal)
             }
             .disposed(by: disposeBag)
 
-        viewModel.recent
+        output.recent
             .bind(
                 to: collectionView.rx.items(
                     cellIdentifier: MovieCollectionViewCell.identifier,
@@ -43,20 +51,22 @@ class BoxOfficeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
          
+        //테이블뷰 셀에서 선택한 글자 가지고 오기
         Observable.zip(
-            tableView.rx.modelSelected(String.self),
+            tableView.rx.modelSelected(DailyBoxOfficeList.self),
             tableView.rx.itemSelected
         )
-            .map { $0.0 }
+        .map { $0.0.movieNm }
             .subscribe(with: self) { owner, value in
                 print(value, "Selected")
+                recentText.onNext(value)
             }
             .disposed(by: disposeBag)
          
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
+        super.viewDidLoad()
         configure()
         bind()
     }
