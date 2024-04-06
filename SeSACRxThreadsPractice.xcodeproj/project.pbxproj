@@ -39,6 +39,21 @@
 		39796FB82BBDA0E50025D940 /* BirthdayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FB72BBDA0E50025D940 /* BirthdayModel.swift */; };
 		39796FBA2BBDA8D30025D940 /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FB92BBDA8D30025D940 /* PhoneViewModel.swift */; };
 		39796FBD2BBDB11F0025D940 /* SampleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */; };
+		39796FBF2BBEEFCF0025D940 /* ShoppingTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FBE2BBEEFCF0025D940 /* ShoppingTableViewCellViewModel.swift */; };
+		39796FC72BBF860C0025D940 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC12BBF860C0025D940 /* Network.swift */; };
+		39796FC82BBF860C0025D940 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC22BBF860C0025D940 /* MovieCollectionViewCell.swift */; };
+		39796FC92BBF860C0025D940 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC32BBF860C0025D940 /* ShareViewController.swift */; };
+		39796FCA2BBF860C0025D940 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC42BBF860C0025D940 /* Movie.swift */; };
+		39796FCB2BBF860C0025D940 /* BoxOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC52BBF860C0025D940 /* BoxOfficeViewController.swift */; };
+		39796FCC2BBF860C0025D940 /* BoxOfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FC62BBF860C0025D940 /* BoxOfficeViewModel.swift */; };
+		39796FDC2BC144110025D940 /* ITunesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FDB2BC144110025D940 /* ITunesTableViewCell.swift */; };
+		39796FDE2BC18A9A0025D940 /* DetailLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FDD2BC18A9A0025D940 /* DetailLabel.swift */; };
+		39796FE02BC18B880025D940 /* AppImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FDF2BC18B880025D940 /* AppImage.swift */; };
+		39796FE22BC193110025D940 /* ITunesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FE12BC193100025D940 /* ITunesViewController.swift */; };
+		39796FE42BC1974E0025D940 /* ITunesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FE32BC1974E0025D940 /* ITunesViewModel.swift */; };
+		39796FE62BC1A3EE0025D940 /* ITunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FE52BC1A3EE0025D940 /* ITunes.swift */; };
+		39796FE82BC1A7380025D940 /* ITunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39796FE72BC1A7380025D940 /* ITunesAPI.swift */; };
+		39796FEB2BC1AF940025D940 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 39796FEA2BC1AF940025D940 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +107,20 @@
 		39796FB72BBDA0E50025D940 /* BirthdayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayModel.swift; sourceTree = "<group>"; };
 		39796FB92BBDA8D30025D940 /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
 		39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewModel.swift; sourceTree = "<group>"; };
+		39796FBE2BBEEFCF0025D940 /* ShoppingTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		39796FC12BBF860C0025D940 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		39796FC22BBF860C0025D940 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		39796FC32BBF860C0025D940 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		39796FC42BBF860C0025D940 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		39796FC52BBF860C0025D940 /* BoxOfficeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewController.swift; sourceTree = "<group>"; };
+		39796FC62BBF860C0025D940 /* BoxOfficeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxOfficeViewModel.swift; sourceTree = "<group>"; };
+		39796FDB2BC144110025D940 /* ITunesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesTableViewCell.swift; sourceTree = "<group>"; };
+		39796FDD2BC18A9A0025D940 /* DetailLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLabel.swift; sourceTree = "<group>"; };
+		39796FDF2BC18B880025D940 /* AppImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImage.swift; sourceTree = "<group>"; };
+		39796FE12BC193100025D940 /* ITunesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesViewController.swift; sourceTree = "<group>"; };
+		39796FE32BC1974E0025D940 /* ITunesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesViewModel.swift; sourceTree = "<group>"; };
+		39796FE52BC1A3EE0025D940 /* ITunes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunes.swift; sourceTree = "<group>"; };
+		39796FE72BC1A7380025D940 /* ITunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39796FEB2BC1AF940025D940 /* Kingfisher in Frameworks */,
 				041280602AEFA0AC00972552 /* SnapKit in Frameworks */,
 				0412805D2AEFA09E00972552 /* RxSwift in Frameworks */,
 				0412805B2AEFA09E00972552 /* RxCocoa in Frameworks */,
@@ -145,6 +175,8 @@
 		041280222AEF9BAB00972552 /* SeSACRxThreads */ = {
 			isa = PBXGroup;
 			children = (
+				39796FDA2BC143CF0025D940 /* iTunes */,
+				39796FC02BBF85F50025D940 /* BoxOffice */,
 				39796FBB2BBDB10D0025D940 /* Sample */,
 				39796FA42BBABAFE0025D940 /* Shopping */,
 				39796FA12BBABA6D0025D940 /* Search */,
@@ -203,6 +235,8 @@
 			children = (
 				041280622AEFA0CE00972552 /* PointButton.swift */,
 				041280642AEFA2F000972552 /* SignTextField.swift */,
+				39796FDD2BC18A9A0025D940 /* DetailLabel.swift */,
+				39796FDF2BC18B880025D940 /* AppImage.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -236,6 +270,7 @@
 				39796FA92BBAFAF60025D940 /* ShoppingEditViewController.swift */,
 				39796FAD2BBB0A250025D940 /* ShoppingViewModel.swift */,
 				39796FB52BBD5A180025D940 /* ShoppingEditViewModel.swift */,
+				39796FBE2BBEEFCF0025D940 /* ShoppingTableViewCellViewModel.swift */,
 			);
 			path = Shopping;
 			sourceTree = "<group>";
@@ -247,6 +282,31 @@
 				39796FBC2BBDB11F0025D940 /* SampleViewModel.swift */,
 			);
 			path = Sample;
+			sourceTree = "<group>";
+		};
+		39796FC02BBF85F50025D940 /* BoxOffice */ = {
+			isa = PBXGroup;
+			children = (
+				39796FC52BBF860C0025D940 /* BoxOfficeViewController.swift */,
+				39796FC62BBF860C0025D940 /* BoxOfficeViewModel.swift */,
+				39796FC42BBF860C0025D940 /* Movie.swift */,
+				39796FC22BBF860C0025D940 /* MovieCollectionViewCell.swift */,
+				39796FC12BBF860C0025D940 /* Network.swift */,
+				39796FC32BBF860C0025D940 /* ShareViewController.swift */,
+			);
+			path = BoxOffice;
+			sourceTree = "<group>";
+		};
+		39796FDA2BC143CF0025D940 /* iTunes */ = {
+			isa = PBXGroup;
+			children = (
+				39796FDB2BC144110025D940 /* ITunesTableViewCell.swift */,
+				39796FE12BC193100025D940 /* ITunesViewController.swift */,
+				39796FE32BC1974E0025D940 /* ITunesViewModel.swift */,
+				39796FE52BC1A3EE0025D940 /* ITunes.swift */,
+				39796FE72BC1A7380025D940 /* ITunesAPI.swift */,
+			);
+			path = iTunes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +329,7 @@
 				0412805A2AEFA09E00972552 /* RxCocoa */,
 				0412805C2AEFA09E00972552 /* RxSwift */,
 				0412805F2AEFA0AC00972552 /* SnapKit */,
+				39796FEA2BC1AF940025D940 /* Kingfisher */,
 			);
 			productName = SeSACRxThreads;
 			productReference = 041280202AEF9BAB00972552 /* SeSACRxThreads.app */;
@@ -345,6 +406,7 @@
 			packageReferences = (
 				041280592AEFA09D00972552 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				0412805E2AEFA0AC00972552 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				39796FE92BC1AF940025D940 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 041280212AEF9BAB00972552 /* Products */;
 			projectDirPath = "";
@@ -388,18 +450,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39796FC72BBF860C0025D940 /* Network.swift in Sources */,
+				39796FE62BC1A3EE0025D940 /* ITunes.swift in Sources */,
+				39796FBF2BBEEFCF0025D940 /* ShoppingTableViewCellViewModel.swift in Sources */,
 				39796FB82BBDA0E50025D940 /* BirthdayModel.swift in Sources */,
 				39796FA82BBABB5E0025D940 /* ShoppingTableViewCell.swift in Sources */,
 				39796FA32BBABABC0025D940 /* SearchViewController.swift in Sources */,
 				39796FAE2BBB0A250025D940 /* ShoppingViewModel.swift in Sources */,
 				39796FBA2BBDA8D30025D940 /* PhoneViewModel.swift in Sources */,
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
+				39796FE42BC1974E0025D940 /* ITunesViewModel.swift in Sources */,
+				39796FE82BC1A7380025D940 /* ITunesAPI.swift in Sources */,
+				39796FCB2BBF860C0025D940 /* BoxOfficeViewController.swift in Sources */,
 				39796FBD2BBDB11F0025D940 /* SampleViewModel.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
 				0412806C2AEFABFE00972552 /* PasswordViewController.swift in Sources */,
 				39796FAA2BBAFAF60025D940 /* ShoppingEditViewController.swift in Sources */,
 				041280562AEFA04800972552 /* SignInViewController.swift in Sources */,
+				39796FE02BC18B880025D940 /* AppImage.swift in Sources */,
+				39796FDC2BC144110025D940 /* ITunesTableViewCell.swift in Sources */,
+				39796FC92BBF860C0025D940 /* ShareViewController.swift in Sources */,
 				041280282AEF9BAB00972552 /* ViewController.swift in Sources */,
 				39652EB12BB9C09F00E71C26 /* SampleViewController.swift in Sources */,
 				39796FAC2BBB02150025D940 /* SearchTableViewCell.swift in Sources */,
@@ -408,10 +479,15 @@
 				041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				041280712AEFAD3D00972552 /* PhoneViewController.swift in Sources */,
+				39796FCA2BBF860C0025D940 /* Movie.swift in Sources */,
 				39796FB62BBD5A180025D940 /* ShoppingEditViewModel.swift in Sources */,
 				041280262AEF9BAB00972552 /* SceneDelegate.swift in Sources */,
+				39796FC82BBF860C0025D940 /* MovieCollectionViewCell.swift in Sources */,
+				39796FE22BC193110025D940 /* ITunesViewController.swift in Sources */,
 				39796FA62BBABB3B0025D940 /* ShoppingViewController.swift in Sources */,
 				041280582AEFA05300972552 /* SignInViewModel.swift in Sources */,
+				39796FDE2BC18A9A0025D940 /* DetailLabel.swift in Sources */,
+				39796FCC2BBF860C0025D940 /* BoxOfficeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +844,14 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		39796FE92BC1AF940025D940 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -785,6 +869,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0412805E2AEFA0AC00972552 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		39796FEA2BC1AF940025D940 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39796FE92BC1AF940025D940 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
