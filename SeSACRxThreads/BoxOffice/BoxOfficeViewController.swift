@@ -50,6 +50,20 @@ class BoxOfficeViewController: UIViewController {
                 cell.label.text = "\(element) @ row \(row) \(element)"
             }
             .disposed(by: disposeBag)
+        
+        output.alert
+            .map { return "네트워크 통신 오류입니다" }
+            .bind(with: self) { owner, value in
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: value, message: nil, preferredStyle: .alert)
+                    
+                    let okButton = UIAlertAction(title: "확인", style: .default)
+                    
+                    alert.addAction(okButton)
+                    owner.present(alert, animated: true)
+                }
+            }
+            .disposed(by: disposeBag)
          
         //테이블뷰 셀에서 선택한 글자 가지고 오기
         Observable.zip(

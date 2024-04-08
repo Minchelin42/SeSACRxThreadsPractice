@@ -32,6 +32,7 @@ class BoxOfficeViewModel {
     struct Output {
         let recent: BehaviorRelay<[String]>
         let movie: PublishSubject<[DailyBoxOfficeList]>
+        let alert: PublishSubject<Void>
     }
     
     
@@ -39,6 +40,7 @@ class BoxOfficeViewModel {
         
         let recentList = BehaviorRelay(value: recent)
         let boxOfficeList = PublishSubject<[DailyBoxOfficeList]>()
+        let alert = PublishSubject<Void>()
         
         //검색 버튼 클릭 > 쿼리 > API 호출 > 디코딩 결과 > 아웃풋
         input.searchButtonTap
@@ -52,6 +54,10 @@ class BoxOfficeViewModel {
             .map { return String($0) }
             .flatMap { //map vs flatMap
                 BoxOfficeNetwork.fetchBoxOfficeData(date: $0)
+                    .catch { error in
+                        alert.onNext(())
+                        return Single<Movie>.never()
+                    }
             }
             .subscribe(with: self, onNext: { owner, value in
                 print("Transfrom Next")
@@ -76,7 +82,8 @@ class BoxOfficeViewModel {
         
         
         return Output(recent: recentList,
-                      movie: boxOfficeList)
+                      movie: boxOfficeList,
+                      alert: alert)
     }
     
     

@@ -17,11 +17,11 @@ enum APIError: Error {
 
 class BoxOfficeNetwork {
     
-    static func fetchBoxOfficeData(date: String) -> Observable<Movie> {
-        return Observable<Movie>.create { observer in
+    static func fetchBoxOfficeData(date: String) -> Single<Movie> {
+        return Single.create { single -> Disposable in
             
-            guard let url = URL(string: "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=\(date)") else {
-                observer.onError(APIError.invalidURL)
+            guard let url = URL(string: "https://111kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=\(date)") else {
+                single(.failure(APIError.invalidURL))
                 return Disposables.create()
             }
             
@@ -29,8 +29,9 @@ class BoxOfficeNetwork {
                 
                 print("DataTask Succeed")
                 
-                if let _ = error {
+                if let error = error {
                     print("Error")
+                    single(.failure(error))
                     return
                 }
                 
@@ -43,11 +44,10 @@ class BoxOfficeNetwork {
                 if let data = data,
                    let appData = try? JSONDecoder().decode(Movie.self, from: data) {
                     print(appData)
-                    observer.onNext(appData)
-                    //observer.onCompleted()
+                    single(.success(appData))
                 } else {
                     print("응답은 왔으나 디코딩 실패")
-                    observer.onError(APIError.unknownResponse)
+                    single(.failure(APIError.unknownResponse))
                 }
             }.resume()
             
