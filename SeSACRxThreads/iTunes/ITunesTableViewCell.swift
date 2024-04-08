@@ -37,16 +37,15 @@ class ITunesTableViewCell: UITableViewCell {
        let button = UIButton()
         button.setTitle("받기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        button.backgroundColor = .lightGray
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.backgroundColor = UIColor(named: "download")
         button.layer.cornerRadius = 15
         return button
     }()
     
     let starImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "star.fill")
-        image.tintColor = .lightGray
+        image.image = UIImage(named: "star")
         return image
     }()
     
